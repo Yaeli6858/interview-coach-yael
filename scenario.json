@@ -1,0 +1,28 @@
+{
+  "sessions": [
+    {
+      "turns": [
+        "שלום! אני מתכוננת לראיון למשרת Full Stack. תקראי את קובץ המשרה fullstack_dev.txt ותגידי לי על אילו נושאים להתמקד.",
+        "חשוב שתזכרי לפעמים הבאות: השלב הראשון הוא ראיון מוקלט מול מצלמה, ואני לא רוצה כרגע שאלות על SQL.",
+        "תני לי שאלה אחת על C#.",
+        "עניתי עליה, אבל התבלבלתי בין interface ל-abstract class. הביטחון שלי 2 מתוך 5. תרשמי."
+      ]
+    },
+    {
+      "turns": [
+        "היי, חזרתי. מה את זוכרת עליי ואיפה עצרנו?",
+        "שיניתי את דעתי: דווקא כן תני לי שאלה אחת על SQL.",
+        "עניתי עליה בביטחון 4 מתוך 5. תרשמי ותסכמי לי בקצרה את ההתקדמות."
+      ]
+    }
+  ],
+  "checks": [
+    {"name": "סשן 1: הכלי החיצוני נקרא (קובץ המשרה)", "type": "tool_called", "session": 1, "tool": "read_job_description"},
+    {"name": "סשן 1: נשמר בזיכרון ש-SQL מוחרג", "type": "memory_has_topic", "after_session": 1, "key": "excluded_topics", "topic": "sql"},
+    {"name": "סשן 1: נשמר בזיכרון שהראיון מוקלט", "type": "memory_contains_any", "after_session": 1, "key": "interview_format", "values": ["מוקלט", "מצלמה", "וידאו", "recorded", "video"]},
+    {"name": "סשן 1: תרגול C# נרשם בביטחון 2", "type": "practice_logged", "after_session": 1, "topic": "csharp", "confidence": 2},
+    {"name": "סשן 2: שליפה מהזיכרון (התשובה מזכירה מה נשמר)", "type": "response_contains_any", "turn": 5, "values": ["מוקלט", "מצלמה", "SQL", "C#", "interface"]},
+    {"name": "סשן 2: הסתירה עודכנה, SQL כבר לא מוחרג", "type": "memory_lacks_topic", "after_session": 2, "key": "excluded_topics", "topic": "sql"},
+    {"name": "סשן 2: תרגול SQL נרשם בביטחון 4", "type": "practice_logged", "after_session": 2, "topic": "sql", "confidence": 4}
+  ]
+}
